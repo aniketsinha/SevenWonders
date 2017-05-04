@@ -87,6 +87,7 @@ function plotMap() {
     getAllMarkers();
 }
 listWonders();
+addResetLink();
 function listWonders() {
     var innerCode = "<ol>";
     for(var i=0;i<WONDERS.length;i++) {
@@ -97,6 +98,12 @@ function listWonders() {
 }
 function getWonderLi(w) {
     return '<li onclick="handleMarkerClick('+w.LATITUDE+','+w.LONGITUDE+')">'+w.NAME+'</li>';
+}
+function addResetLink() {
+    var reset = document.createElement('a');
+	reset.setAttribute('onclick','initMap()');
+	reset.innerText = ("Reset")
+	document.getElementById("wonders").append(reset);
 }
 function handleMarkerClick(lat,lng) {
     map.panTo(new google.maps.LatLng(lat,lng));
