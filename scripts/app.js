@@ -109,3 +109,27 @@ function handleMarkerClick(lat,lng) {
     map.panTo(new google.maps.LatLng(lat,lng));
     map.setZoom(16);
 }
+
+if ("geolocation" in navigator) {
+	//geolocation available
+	navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+}
+
+function successCallback(position) {
+	var latitude  = position.coords.latitude;
+	var longitude = position.coords.longitude;
+	console.log("User Coordinates = ", latitude, longitude, 'map=',map);
+	if(map) {
+		map.panTo(new google.maps.LatLng(latitude,longitude));
+		var user  = {
+				NAME: "You",
+				LATITUDE: latitude,
+				LONGITUDE: longitude
+		}
+		createMarker(user);
+	}
+}
+
+function errorCallback() {
+	console.log("Unable to retrieve user's location.");
+}
